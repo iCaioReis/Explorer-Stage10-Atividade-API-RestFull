@@ -38,12 +38,17 @@ class usersController {
         if (checkEmailExists && checkEmailExists.id !== user.id) {
             throw new AppError("E-mail já cadastrado!");
         }
+
+        user.name = name ?? user.name;
+        user.email = email ?? user.email;
+
+
+        if (password && !old_password) {
+            throw new AppError("É necessário informar a senha antiga para alteração da nova senha!");
+        }
+
         if (password && old_password) {
             const checkPassword = await compare(old_password, user.password);
-
-            if (password && !old_password) {
-                throw new AppError("É necessário informar a senha antiga para alteração da nova senha!");
-            }
 
             if (!checkPassword) {
                 throw new AppError("Senha inválida!");
@@ -52,8 +57,6 @@ class usersController {
             user.password = await hash(password, 8);
         }
 
-        user.name = name ?? user.name;
-        user.email = email ?? user.email;
 
         await database.run(`
         UPDATE users SET
@@ -62,7 +65,7 @@ class usersController {
         password = ?,
         updated_at = DATETIME('now')
         WHERE ID = ?`,
-            [user.name, user.email, user.password, id]);
+            [user.name, user.email, user.password, user_id]);
         return res.json();
     }
 }
