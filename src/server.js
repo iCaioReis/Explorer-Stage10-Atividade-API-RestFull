@@ -1,15 +1,16 @@
 require("express-async-errors") //Gerador de erros do express
-
 const migrationRun = require ("./database/sqlite/migrations");
 const AppError = require("./utils/AppError.js");
 const uploadConfig = require("./configs/upload.js");
 
+const cors = require("cors");
 const express = require ("express");
 const routes = require ('./routes');
 
 migrationRun();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER));
