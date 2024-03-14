@@ -12,6 +12,6 @@ const routes = Router();
 routes.use('/users', usersRouter);
 routes.use('/notes', notesRouter);
 routes.use('/tags', tagsRouter);
-routes.use('/sessionsrouter', sessionsRouter);
+routes.use('/sessions', sessionsRouter);
 
 module.exports = routes;
