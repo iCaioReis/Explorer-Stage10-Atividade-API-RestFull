@@ -60,12 +60,12 @@ class NotesControler{
         const { title, tags} = req.query;
         const user_id = req.user.id;
 
-        let notes;
+        let notes
 
         if(tags){
             const filterTags = tags.split(',').map(tag => tag.trim());
 
-            notes = knex("tags")
+            notes = await knex("tags")
                 .select([
                     "notes.id",
                     "notes.title",
