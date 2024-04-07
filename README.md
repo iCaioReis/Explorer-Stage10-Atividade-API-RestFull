@@ -5,7 +5,7 @@ Estrutura de pastas:
 
 ->  src  
     |_configs  
-    |_controlers -> Pasta com regra de negócios das rotas  
+    |_controlers -> Controla somente requisições e respostas
     |_database  
     |  |_knex  
     |  |    |_migrations -> Criação de migrations utilizando o Query Builder knex  
@@ -15,3 +15,5 @@ Estrutura de pastas:
     |_middlewares
     |_providers
     |_repositories -> Códigos que interagem com o banco de dados para serem utilizados nos controllers
+    |_routes
+    |_services -> Controla as regras de negócio das requisições
