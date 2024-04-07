@@ -1,11 +1,16 @@
 const { hash, compare } = require("bcryptjs"); //Depêndencia utilizada para encriptar senhas e compará-las após criptografadas
 const AppError = require("../utils/AppError");
 
+const UserRepository = require("../repositories/UserRepository");
 const sqliteConnection = require("../database/sqlite");
 
 class usersController {
     async create(req, res) {
         const { name, email, password } = req.body;
+
+        const userRepository = new UserRepository();
+
+        const checkUserExists = await userRepository.findByEmail(email);
 
         if (checkUserExists) {
             throw new AppError("E-mail já cadastrado!");
@@ -13,7 +18,7 @@ class usersController {
 
         const hashedPassword = await hash(password, 8)
 
-        await database.run("INSERT INTO users (name, email, password) VALUES(?,?,?)", [name, email, hashedPassword]);
+        await userRepository.create({ name, email, password: hashedPassword });
 
         return res.status(201).json();
     }

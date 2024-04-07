@@ -12,3 +12,6 @@ Estrutura de pastas:
     |  |_sqlite  
     |  |    |_migrations -> Exemplo de criação de migration utilizando códigos SQL  
     |  |_database.db -> Arquivo do banco de dados SQLite  
+    |_middlewares
+    |_providers
+    |_repositories -> Códigos que interagem com o banco de dados para serem utilizados nos controllers
